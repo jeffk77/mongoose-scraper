@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="jumbotron">
+        <h1>Welcome to Mongoose Scraper!</h1>
+        <a href="/">
+            <button class="btn btn-primary" id="home">
+                Back to Articles
+            </button>
+        </a>
+    </div>
+
+    {{#each save}}
+    <div class="card">
+        <div class="card-body">
+            <a href={{this.link}} target="_blank">
+                <h5 class="card-title">{{this.title}}</h5>
+            </a>
+            <p class="card-text">{{this.body}}</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary noteModal" data-id={{this._id}} data-toggle="modal" data-target=".note">
+                Add a Note
+            </button>
+            <button class="btn btn-danger unsaveArticle" data-id={{this._id}} data-toggle="modal" data-target="#unsaveArticle">
+                Unsave Article
+            </button>
+        </div>
+    </div>
+    {{/each}}
+
+    <div class="modal fade note" tabindex="-1" role="dialog" aria-labelledby="Note" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Note</h5>
+                    <button type="button" class="close disappear" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="note-text" class="col-form-label">Message:</label>
+                            <textarea class="form-control" id="note-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary disappear" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" id="saveNote">Save Note</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="unsaveArticle" tabindex="-1" role="dialog" aria-labelledby="Article" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Article Unsaved!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
