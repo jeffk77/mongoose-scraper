@@ -8,18 +8,19 @@ module.exports = function (app) {
       if (err) throw err;
       if (result) console.log("Collection deleted");
     });
-    request("http://forums.redflagdeals.com/hot-deals-f9/", function (err, response, html) {
+
+    request("https://www.cp24.com/news/", function (err, response, html) {
 
       var $ = cheerio.load(response.body);
 
       var result = {};
 
-      $(".topic h3").each(function (i, element) {
+      $(".teaserText").each(function (i, element) {
 
         // Add the text and href of every link, and save them as properties of the result object
-        result.title = $(element).find(".topic_title_link").text();
-        result.body = $(element).find(".topictitle_retailer").text();
-        result.link = `https://forums.redflagdeals.com${$(element).find(".topic_title_link").attr("href")}`;
+        result.title = $(element).find(".teaserTitle").text();
+        result.body = $(element).find("lead-left p").text();
+        result.link = $(this).find("a").attr("href");
 
         // Create a new Article using the `result` object built from scraping
         db.Article.create(result)
