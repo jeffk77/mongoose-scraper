@@ -1,5 +1,10 @@
+.jumbotron {
+  text-align: center;
+}
+
 body {
   padding: 50px;
+  margin: 25px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
