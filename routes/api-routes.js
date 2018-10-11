@@ -17,12 +17,11 @@ module.exports = function (app) {
 
       $(".teaserText").each(function (i, element) {
 
-        // Add the text and href of every link, and save them as properties of the result object
+        // Grabbing the article title and link from each story on the page
         result.title = $(element).find(".teaserTitle").text();
-        result.body = $(element).find("lead-left p").text();
         result.link = $(this).find("a").attr("href");
 
-        // Create a new Article using the `result` object built from scraping
+        // Building a new article setup using the scraped data
         db.Article.create(result)
           .then(function (dbArticle) {
             console.log(dbArticle);
@@ -42,13 +41,15 @@ module.exports = function (app) {
       { _id: req.params.id },
       { $set: { saved: true } }
     ).then(function (dbArticle) {
-      // If we were able to successfully find Articles, send them back to the client
+      
+      // Empty "scrape" response
       console.log(dbArticle);
       res.send(true);
     })
       .catch(function (err) {
         console.log(dbArticle)
-        // If an error occurred, send it to the client
+        
+        // Error response
         res.json(err);
       });
   });
